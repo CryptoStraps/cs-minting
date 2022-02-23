@@ -1,24 +1,25 @@
-import { useEffect, useMemo, useState, useCallback } from 'react';
-import * as anchor from '@project-serum/anchor';
+import { useEffect, useMemo, useState, useCallback } from "react";
+import * as anchor from "@project-serum/anchor";
 
-import styled from 'styled-components';
-import { Container, Snackbar } from '@material-ui/core';
-import Paper from '@material-ui/core/Paper';
-import Alert from '@material-ui/lab/Alert';
-import { PublicKey } from '@solana/web3.js';
-import { useWallet } from '@solana/wallet-adapter-react';
-import { WalletDialogButton } from '@solana/wallet-adapter-material-ui';
+import styled from "styled-components";
+import { Container, Snackbar } from "@material-ui/core";
+import Paper from "@material-ui/core/Paper";
+import Alert from "@material-ui/lab/Alert";
+import { PublicKey } from "@solana/web3.js";
+import { useWallet } from "@solana/wallet-adapter-react";
+import { WalletDialogButton } from "@solana/wallet-adapter-material-ui";
 import {
   awaitTransactionSignatureConfirmation,
   CandyMachineAccount,
   CANDY_MACHINE_PROGRAM,
   getCandyMachineState,
   mintOneToken,
-} from './candy-machine';
-import { AlertState } from './utils';
-import { Header } from './Header';
-import { MintButton } from './MintButton';
-import { GatewayProvider } from '@civic/solana-gateway-react';
+} from "./candy-machine";
+import { AlertState } from "./utils";
+import { Header } from "./Header";
+import { MintButton } from "./MintButton";
+import { GatewayProvider } from "@civic/solana-gateway-react";
+import { getMeta } from "./get-meta";
 
 const ConnectButton = styled(WalletDialogButton)`
   width: 100%;
@@ -39,14 +40,17 @@ export interface HomeProps {
   startDate: number;
   txTimeout: number;
   rpcHost: string;
+  endpoint: string;
 }
 
 const Home = (props: HomeProps) => {
+  const { connection } = props;
+  const [meta, setMeta] = useState<any>();
   const [isUserMinting, setIsUserMinting] = useState(false);
   const [candyMachine, setCandyMachine] = useState<CandyMachineAccount>();
   const [alertState, setAlertState] = useState<AlertState>({
     open: false,
-    message: '',
+    message: "",
     severity: undefined,
   });
 
@@ -80,58 +84,85 @@ const Home = (props: HomeProps) => {
         const cndy = await getCandyMachineState(
           anchorWallet,
           props.candyMachineId,
-          props.connection,
+          connection
         );
         console.log(JSON.stringify(cndy.state, null, 4));
         setCandyMachine(cndy);
       } catch (e) {
-        console.log('There was a problem fetching Candy Machine state');
+        console.log("There was a problem fetching Candy Machine state");
         console.log(e);
       }
     }
-  }, [anchorWallet, props.candyMachineId, props.connection]);
+  }, [anchorWallet, props.candyMachineId, connection]);
 
   const onMint = async () => {
     try {
       setIsUserMinting(true);
-      document.getElementById('#identity')?.click();
+      document.getElementById("#identity")?.click();
       if (wallet.connected && candyMachine?.program && wallet.publicKey) {
         const mintTxId = (
           await mintOneToken(candyMachine, wallet.publicKey)
         )[0];
 
         let status: any = { err: true };
+        let mintTx;
         if (mintTxId) {
           status = await awaitTransactionSignatureConfirmation(
             mintTxId,
             props.txTimeout,
-            props.connection,
-            true,
+            connection,
+            true
           );
+          let counter = 0;
+          const timeout = 500;
+          const tries = 200;
+          while (!mintTx) {
+            mintTx = await connection.getTransaction(mintTxId, {
+              commitment: "finalized",
+            });
+            await new Promise((resolve) => setTimeout(() => resolve(""), timeout));
+            counter += 1;
+            if (tries === counter) {
+              // stop at 200*500ms = 100s
+              setAlertState({
+                open: true,
+                message: "Could not fetch metadata, please check your wallet.",
+                severity: "error",
+              });
+              break;
+            }
+          }
+        }
+
+        if (mintTx?.meta?.postTokenBalances) {
+          // After this we can show dialogue with video
+          const mint = mintTx?.meta?.postTokenBalances[0]?.mint;
+          const meta = ((await getMeta(mint, props.endpoint)) as any[])[0];
+          setMeta(meta);
         }
 
         if (status && !status.err) {
           setAlertState({
             open: true,
-            message: 'Congratulations! Mint succeeded!',
-            severity: 'success',
+            message: "Congratulations! Mint succeeded!",
+            severity: "success",
           });
         } else {
           setAlertState({
             open: true,
-            message: 'Mint failed! Please try again!',
-            severity: 'error',
+            message: "Mint failed! Please try again!",
+            severity: "error",
           });
         }
       }
     } catch (error: any) {
-      let message = error.msg || 'Minting failed! Please try again!';
+      let message = error.msg || "Minting failed! Please try again!";
       if (!error.msg) {
         if (!error.message) {
-          message = 'Transaction Timeout! Please try again.';
-        } else if (error.message.indexOf('0x137')) {
+          message = "Transaction Timeout! Please try again.";
+        } else if (error.message.indexOf("0x137")) {
           message = `SOLD OUT!`;
-        } else if (error.message.indexOf('0x135')) {
+        } else if (error.message.indexOf("0x135")) {
           message = `Insufficient funds to mint. Please fund your wallet.`;
         }
       } else {
@@ -146,7 +177,7 @@ const Home = (props: HomeProps) => {
       setAlertState({
         open: true,
         message,
-        severity: 'error',
+        severity: "error",
       });
     } finally {
       setIsUserMinting(false);
@@ -158,15 +189,15 @@ const Home = (props: HomeProps) => {
   }, [
     anchorWallet,
     props.candyMachineId,
-    props.connection,
+    connection,
     refreshCandyMachineState,
   ]);
 
   return (
     <Container style={{ marginTop: 100 }}>
-      <Container maxWidth="xs" style={{ position: 'relative' }}>
+      <Container maxWidth="xs" style={{ position: "relative" }}>
         <Paper
-          style={{ padding: 24, backgroundColor: '#151A1F', borderRadius: 6 }}
+          style={{ padding: 24, backgroundColor: "#151A1F", borderRadius: 6 }}
         >
           {!wallet.connected ? (
             <ConnectButton>Connect Wallet</ConnectButton>
