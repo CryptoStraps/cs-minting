@@ -14,6 +14,11 @@ export const CTAButton = styled(Button)`
   color: black;
   font-size: 16px;
   font-weight: bold;
+
+  &:disabled{
+    color: black;
+    background: red;
+  }
 `; // add your own styles here
 
 export const MintButton = ({
