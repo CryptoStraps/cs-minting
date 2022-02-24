@@ -12,3 +12,84 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+
+.main{
+  height: 100vh;
+  padding: 0 !important;
+}
+
+.mintCont{
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo{
+  text-align: center;
+  position: relative;
+  margin-bottom: 24px;
+}
+
+.logo img{
+  width: 100%;
+  max-width: 300px;
+  margin: 0 auto;
+}
+
+.CSbutton{
+  background-image: linear-gradient(45deg,#0070f3 -20%,#94f9f0 50%);
+  color: #000000;
+}
+
+
+.bgVid{
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background-color: black;
+  /* z-index: -1; */
+}
+
+.vidWrapper{
+  position: fixed;
+}
+
+.loadIcon{
+  display: flex;
+
+}
+
+.loadIcon img{
+  width:'100%';
+  animation: rotate-s-loader 1.2s linear infinite;
+}
+
+@keyframes rotate-s-loader {
+  from {
+    transform: rotate(0);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.CSNFT{
+  width: 100%;
+ padding-top: 24px;
+ max-width: 600px;
+ text-align: center;
+ margin: 0 auto;
+ padding-bottom: 12px;
+
+}
+
+.CSNFTVID{
+
+}

@@ -4,14 +4,14 @@ import { CandyMachineAccount } from './candy-machine';
 import { CircularProgress } from '@material-ui/core';
 import { GatewayStatus, useGateway } from '@civic/solana-gateway-react';
 import { useEffect, useState } from 'react';
-
+import Load from './load';
 export const CTAButton = styled(Button)`
   width: 100%;
   height: 60px;
   margin-top: 10px;
   margin-bottom: 5px;
-  background: linear-gradient(180deg, #604ae5 0%, #813eee 100%);
-  color: white;
+  background-image: linear-gradient(45deg,#0070f3 -20%,#94f9f0 50%);
+  color: black;
   font-size: 16px;
   font-weight: bold;
 `; // add your own styles here
@@ -39,11 +39,11 @@ export const MintButton = ({
     if (candyMachine?.state.isSoldOut) {
       return 'SOLD OUT';
     } else if (isMinting) {
-      return <CircularProgress />;
+      return <Load />;
     } else if (candyMachine?.state.isPresale) {
       return 'PRESALE MINT';
     } else if (clicked && candyMachine?.state.gatekeeper) {
-      return <CircularProgress />;
+      return <Load />;
     }
 
     return 'MINT';
