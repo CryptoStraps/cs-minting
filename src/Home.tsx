@@ -270,7 +270,7 @@ const Home = (props: HomeProps) => {
   ]);
 
   return (
-    <Container className="main">
+    <Container className="main" maxWidth="lg">
       <div className="vidWrapper">
           <video className="bgVid" webkit-playsinline="true" autoPlay loop muted playsInline poster="" style={{display:"block"}}>
               <source src="/ammo4.mp4" type="video/mp4"/>
