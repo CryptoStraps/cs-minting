@@ -94,3 +94,21 @@ code {
 .CSNFTVID{
 
 }
+
+.CrossMint{
+  width:100%;
+  display: flex;
+  /* align-items: center; */
+  /* align-content: center; */
+  justify-content: center;
+}
+
+.CrossMint button{
+  width:100%;
+  color: #09e6e7 !important;
+  background: white;
+}
+
+.CrossMint button p{
+  color: #08c7c8 !important
+}

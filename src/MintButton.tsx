@@ -17,7 +17,7 @@ export const CTAButton = styled(Button)`
 
   &:disabled{
     color: black;
-    background: red;
+    background: white;
   }
 `; // add your own styles here
 
