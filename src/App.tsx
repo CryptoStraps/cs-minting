@@ -12,7 +12,6 @@ import {
   getSolletWallet,
   getSolletExtensionWallet,
 } from '@solana/wallet-adapter-wallets';
-
 import {
   ConnectionProvider,
   WalletProvider,
@@ -21,6 +20,7 @@ import { WalletDialogProvider } from '@solana/wallet-adapter-material-ui';
 
 import { ThemeProvider, createTheme } from '@material-ui/core';
 import { CrossMintProvider } from '@crossmint/client-sdk-react-ui';
+require("@crossmint/client-sdk-react-ui/styles.css");
 
 const theme = createTheme({
   palette: {
