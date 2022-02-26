@@ -20,6 +20,7 @@ import {
 import { WalletDialogProvider } from '@solana/wallet-adapter-material-ui';
 
 import { ThemeProvider, createTheme } from '@material-ui/core';
+import { CrossMintProvider } from '@crossmint/client-sdk-react-ui';
 
 const theme = createTheme({
   palette: {
@@ -69,6 +70,7 @@ const App = () => {
       <ConnectionProvider endpoint={endpoint}>
         <WalletProvider wallets={wallets} autoConnect>
           <WalletDialogProvider>
+          <CrossMintProvider clientId="defab533-af9c-4d9d-89e6-355c61c9f5da">
             <Home
               candyMachineId={candyMachineId}
               connection={connection}
@@ -77,6 +79,7 @@ const App = () => {
               rpcHost={rpcHost}
               endpoint={endpoint}
             />
+                    </CrossMintProvider>
           </WalletDialogProvider>
         </WalletProvider>
       </ConnectionProvider>
