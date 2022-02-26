@@ -284,8 +284,8 @@ const Home = (props: HomeProps) => {
           <div className="mt-3">
             <CrossMintButton
               collectionTitle="CryptoStraps"
-              collectionDescription=""
-              collectionPhoto=""
+              collectionDescription="CryptoStraps is a next-gen 3D animated NFT pushing all boundaries and breathing new life into the ecosystem with their innovate tech."
+              collectionPhoto="https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/2Pyc8DkCgPohR1o3ExMx84fLxU8ti1eQnySUwJMh5E6d/logo.png"
               listingId="defab533-af9c-4d9d-89e6-355c61c9f5da"
             />
           </div>
