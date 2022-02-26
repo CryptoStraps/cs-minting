@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState, useCallback } from "react";
 import * as anchor from "@project-serum/anchor";
-
+import { CrossMintButton } from "@crossmint/client-sdk-react-ui";
 import styled from "styled-components";
 import { Container, Snackbar, Box } from "@material-ui/core";
 import Button from '@material-ui/core/Button';
@@ -194,7 +194,9 @@ const Home = (props: HomeProps) => {
             mintTx = await connection.getTransaction(mintTxId, {
               commitment: "finalized",
             });
-            await new Promise((resolve) => setTimeout(() => resolve(""), timeout));
+            await new Promise((resolve) =>
+              setTimeout(() => resolve(""), timeout)
+            );
             counter += 1;
             if (tries === counter) {
               // stop at 200*500ms = 100s
@@ -269,6 +271,29 @@ const Home = (props: HomeProps) => {
     refreshCandyMachineState,
   ]);
 
+  const MintButtons = () => {
+    return (
+      <>
+        <MintButton
+          candyMachine={candyMachine}
+          isMinting={isUserMinting}
+          onMint={onMint}
+        />
+        {(candyMachine?.state?.goLiveDate?.toNumber() || 0) * 1000 <=
+          Date.now() && (
+          <div className="mt-3">
+            <CrossMintButton
+              collectionTitle="CryptoStraps"
+              collectionDescription=""
+              collectionPhoto=""
+              listingId="defab533-af9c-4d9d-89e6-355c61c9f5da"
+            />
+          </div>
+        )}
+      </>
+    );
+  };
+
   return (
     <Container className="main" maxWidth="lg">
       <div className="vidWrapper">
@@ -316,18 +341,10 @@ const Home = (props: HomeProps) => {
                     clusterUrl={rpcUrl}
                     options={{ autoShowModal: false }}
                   >
-                    <MintButton
-                      candyMachine={candyMachine}
-                      isMinting={isUserMinting}
-                      onMint={onMint}
-                    />
+                    <MintButtons />
                   </GatewayProvider>
                 ) : (
-                  <MintButton
-                    candyMachine={candyMachine}
-                    isMinting={isUserMinting}
-                    onMint={onMint}
-                  />
+                  <MintButtons />
                 )}
               </MintContainer>
             </>
