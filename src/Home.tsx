@@ -239,7 +239,7 @@ const Home = (props: HomeProps) => {
         if (!error.message) {
           message = "Transaction Timeout! Please try again.";
         } else if (error.message.indexOf("0x137")) {
-          message = `SOLD OUT!`;
+          message = `Error! Please check wallet to see if Strap was minted and reload site.`;
         } else if (error.message.indexOf("0x135")) {
           message = `Insufficient funds to mint. Please fund your wallet.`;
         }
