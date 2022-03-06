@@ -312,7 +312,7 @@ const Home = (props: HomeProps) => {
           {!wallet.connected ? (<>
             <div  className="logo">
                   <img alt="cs" src="/ltrans.png"></img>
-              </div>
+              </div> 
               <ConnectButton className="CSbutton">Connect Wallet</ConnectButton>
           </>
             
