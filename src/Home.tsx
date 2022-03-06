@@ -383,7 +383,7 @@ const Home = (props: HomeProps) => {
                                 <source src={meta} type="video/mp4"/>
                             </video>
               </div>
-              <StakeButton>STAKE</StakeButton>
+              {/* <StakeButton>STAKE</StakeButton> */}
               <AgainButton onClick={handleClose}>MINT ANOTHER</AgainButton>
             </Box>
           </StyledModal>
