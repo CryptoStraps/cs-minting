@@ -3,7 +3,7 @@ import * as anchor from "@project-serum/anchor";
 import { CrossMintButton } from "@crossmint/client-sdk-react-ui";
 import styled from "styled-components";
 import { Container, Snackbar, Box } from "@material-ui/core";
-import Button from '@material-ui/core/Button';
+import Button from "@material-ui/core/Button";
 import Paper from "@material-ui/core/Paper";
 import Alert from "@material-ui/lab/Alert";
 import { PublicKey } from "@solana/web3.js";
@@ -21,22 +21,21 @@ import { Header } from "./Header";
 import { MintButton } from "./MintButton";
 import { GatewayProvider } from "@civic/solana-gateway-react";
 import { getMeta } from "./get-meta";
-import ModalUnstyled from '@material-ui/core/Modal';
+import ModalUnstyled from "@material-ui/core/Modal";
 
 const ConnectButton = styled(WalletDialogButton)`
   width: 100%;
   height: 60px;
   margin-top: 10px;
   margin-bottom: 5px;
-  background-image: linear-gradient(45deg,#0070f3 -20%,#94f9f0 50%);
+  background-image: linear-gradient(45deg, #0070f3 -20%, #94f9f0 50%);
   color: black;
   font-size: 16px;
   font-weight: bold;
 `;
 
 const MintContainer = styled.div`
-//  background-color:red;
-
+  //  background-color:red;
 `; // add your owns styles here
 
 const StyledModal = styled(ModalUnstyled)`
@@ -49,10 +48,10 @@ const StyledModal = styled(ModalUnstyled)`
   display: flex;
   align-items: center;
   justify-content: center;
-  text-align:center;
+  text-align: center;
 `;
 
-const Backdrop = styled('div')`
+const Backdrop = styled("div")`
   z-index: -1;
   position: fixed;
   right: 0;
@@ -65,16 +64,16 @@ const Backdrop = styled('div')`
 
 const style = {
   width: 400,
-  bgcolor: 'black',
-  color: 'white',
-  border: '2px solid #000',
+  bgcolor: "black",
+  color: "white",
+  border: "2px solid #000",
   borderRadius: "8px",
   p: 2,
   px: 4,
   pb: 3,
   borderImage: "linear-gradient(45deg,#0070f3 -20%,#94f9f0 50%) 1",
   borderStyle: "solid",
-  borderWidth: "2px"
+  borderWidth: "2px",
 };
 
 export const StakeButton = styled(Button)`
@@ -83,7 +82,7 @@ export const StakeButton = styled(Button)`
   margin-top: 10px;
   margin-bottom: 5px;
   margin: 2px;
-  background-image: linear-gradient(45deg,#0070f3 -20%,#94f9f0 50%);
+  background-image: linear-gradient(45deg, #0070f3 -20%, #94f9f0 50%);
   color: black;
   font-size: 16px;
   font-weight: bold;
@@ -100,8 +99,8 @@ export const AgainButton = styled(Button)`
   font-size: 16px;
   font-weight: bold;
 
-  &:hover{
-    color:white;
+  &:hover {
+    color: white;
   }
 `;
 
@@ -215,8 +214,8 @@ const Home = (props: HomeProps) => {
           const mint = mintTx?.meta?.postTokenBalances[0]?.mint;
           const meta = ((await getMeta(mint, props.endpoint)) as any[])[0];
           setMeta(meta.metadata.animation_url);
-          handleOpen()
-          console.log("META", meta.metadata.animation_url)
+          handleOpen();
+          console.log("META", meta.metadata.animation_url);
         }
 
         if (status && !status.err) {
@@ -283,7 +282,6 @@ const Home = (props: HomeProps) => {
           Date.now() && (
           <div className="CrossMint">
             <CrossMintButton
-           
               collectionTitle="CryptoStraps"
               collectionDescription="CryptoStraps is a next-gen 3D animated NFT pushing all boundaries and breathing new life into the ecosystem with their innovate tech."
               collectionPhoto="https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/2Pyc8DkCgPohR1o3ExMx84fLxU8ti1eQnySUwJMh5E6d/logo.png"
@@ -297,74 +295,89 @@ const Home = (props: HomeProps) => {
   return (
     <Container className="main" maxWidth="lg">
       <div className="vidWrapper">
-          <video className="bgVid" webkit-playsinline="true" autoPlay loop muted playsInline poster="" style={{display:"block"}}>
-              <source src="/ammo4.mp4" type="video/mp4"/>
-          </video>
+        <video
+          className="bgVid"
+          webkit-playsinline="true"
+          autoPlay
+          loop
+          muted
+          playsInline
+          poster=""
+          style={{ display: "block" }}
+        >
+          <source src="/ammo4.mp4" type="video/mp4" />
+        </video>
       </div>
       <div className="mintCont">
-      {/* <Container  className="logo">
+        {/* <Container  className="logo">
           <img alt="cs" src="/ltrans.png"></img>
       </Container> */}
-      <Container maxWidth="xs" style={{ position: "relative" }}>
-        <Paper
-          style={{ padding: 24, backgroundColor: "rgb(21 26 31 / 55%)", borderRadius: 6 }}
-        >
-          {!wallet.connected ? (<>
-            <div  className="logo">
+        <Container maxWidth="xs" style={{ position: "relative" }}>
+          <Paper
+            style={{
+              padding: 24,
+              backgroundColor: "rgb(21 26 31 / 55%)",
+              borderRadius: 6,
+            }}
+          >
+            {!wallet.connected ? (
+              <>
+                <div className="logo">
                   <img alt="cs" src="/ltrans.png"></img>
-              </div> 
-              <ConnectButton className="CSbutton">Connect Wallet</ConnectButton>
-          </>
-            
-          ) : (
-            <>
-               <div  className="logo">
+                </div>
+                <ConnectButton className="CSbutton">
+                  Connect Wallet
+                </ConnectButton>
+              </>
+            ) : (
+              <>
+                <div className="logo">
                   <img alt="cs" src="/ltrans.png"></img>
-              </div>
-              <Header candyMachine={candyMachine} />
-              <MintContainer>
-                {candyMachine?.state.isActive &&
-                candyMachine?.state.gatekeeper &&
-                wallet.publicKey &&
-                wallet.signTransaction ? (
-                  <GatewayProvider
-                    wallet={{
-                      publicKey:
-                        wallet.publicKey ||
-                        new PublicKey(CANDY_MACHINE_PROGRAM),
-                      //@ts-ignore
-                      signTransaction: wallet.signTransaction,
-                    }}
-                    gatekeeperNetwork={
-                      candyMachine?.state?.gatekeeper?.gatekeeperNetwork
-                    }
-                    clusterUrl={rpcUrl}
-                    options={{ autoShowModal: false }}
-                  >
+                </div>
+                <Header candyMachine={candyMachine} />
+                <MintContainer>
+                  {candyMachine?.state.isActive &&
+                  candyMachine?.state.gatekeeper &&
+                  wallet.publicKey &&
+                  wallet.signTransaction ? (
+                    <GatewayProvider
+                      wallet={{
+                        publicKey:
+                          wallet.publicKey ||
+                          new PublicKey(CANDY_MACHINE_PROGRAM),
+                        //@ts-ignore
+                        signTransaction: wallet.signTransaction,
+                      }}
+                      gatekeeperNetwork={
+                        candyMachine?.state?.gatekeeper?.gatekeeperNetwork
+                      }
+                      clusterUrl={rpcUrl}
+                      options={{ autoShowModal: false }}
+                    >
+                      <MintButtons />
+                    </GatewayProvider>
+                  ) : (
                     <MintButtons />
-                  </GatewayProvider>
-                ) : (
-                  <MintButtons />
-                )}
-              </MintContainer>
-            </>
-          )}
-        </Paper>
-      </Container>
+                  )}
+                </MintContainer>
+              </>
+            )}
+          </Paper>
+        </Container>
 
-      <Snackbar
-        open={alertState.open}
-        autoHideDuration={6000}
-        onClose={() => setAlertState({ ...alertState, open: false })}
-      >
-        <Alert
+        <Snackbar
+          open={alertState.open}
+          autoHideDuration={6000}
           onClose={() => setAlertState({ ...alertState, open: false })}
-          severity={alertState.severity}
         >
-          {alertState.message}
-        </Alert>
-      </Snackbar>
-      <div style={{position: 'relative'}}>
+          <Alert
+            onClose={() => setAlertState({ ...alertState, open: false })}
+            severity={alertState.severity}
+          >
+            {alertState.message}
+          </Alert>
+        </Snackbar>
+        <div style={{ position: "relative" }}>
           {/* <button type="button" onClick={handleOpen}>
             Open modal
           </button> */}
@@ -379,18 +392,32 @@ const Home = (props: HomeProps) => {
               <h2 id="unstyled-modal-title">CRYPTOSTRAP REVEAL</h2>
               <p id="unstyled-modal-description">LOCK AND LOAD!</p>
               <div className="CSNFT">
-                            <video className="CSNFTVID" webkit-playsinline="true" autoPlay loop muted playsInline poster="" style={{display:"block", width: "100%"}}>
-                                <source src={meta} type="video/mp4"/>
-                            </video>
+                <video
+                  className="CSNFTVID"
+                  webkit-playsinline="true"
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  poster=""
+                  style={{ display: "block", width: "100%" }}
+                >
+                  <source src={meta} type="video/mp4" />
+                </video>
               </div>
               {/* <StakeButton>STAKE</StakeButton> */}
-              <AgainButton onClick={handleClose}>MINT ANOTHER</AgainButton>
+              <StakeButton onClick={handleClose}>MINT ANOTHER</StakeButton>
+              <a
+                href="https://showcase.cryptostraps.io"
+                rel="noreferrer"
+                target="_blank"
+              >
+                <AgainButton onClick={handleClose}>SEE ALL</AgainButton>
+              </a>
             </Box>
           </StyledModal>
         </div>
-
       </div>
- 
     </Container>
   );
 };
