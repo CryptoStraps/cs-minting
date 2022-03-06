@@ -70,7 +70,7 @@ const App = () => {
       <ConnectionProvider endpoint={endpoint}>
         <WalletProvider wallets={wallets} autoConnect>
           <WalletDialogProvider>
-          <CrossMintProvider clientId="defab533-af9c-4d9d-89e6-355c61c9f5da">
+          <CrossMintProvider clientId="5fe47839-720f-4b07-851d-0290cf93ca76">
             <Home
               candyMachineId={candyMachineId}
               connection={connection}
