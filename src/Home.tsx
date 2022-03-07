@@ -278,16 +278,6 @@ const Home = (props: HomeProps) => {
           isMinting={isUserMinting}
           onMint={onMint}
         />
-        {(candyMachine?.state?.goLiveDate?.toNumber() || 0) * 1000 <=
-          Date.now() && (
-          <div className="CrossMint">
-            <CrossMintButton
-              collectionTitle="CryptoStraps"
-              collectionDescription="CryptoStraps is a next-gen 3D animated NFT pushing all boundaries and breathing new life into the ecosystem with their innovate tech."
-              collectionPhoto="https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/2Pyc8DkCgPohR1o3ExMx84fLxU8ti1eQnySUwJMh5E6d/logo.png"
-            />
-          </div>
-        )}
       </>
     );
   };
@@ -362,6 +352,13 @@ const Home = (props: HomeProps) => {
                 </MintContainer>
               </>
             )}
+            <div className="CrossMint">
+              <CrossMintButton
+                collectionTitle="CryptoStraps"
+                collectionDescription="CryptoStraps is a next-gen 3D animated NFT pushing all boundaries and breathing new life into the ecosystem with their innovate tech."
+                collectionPhoto="https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/2Pyc8DkCgPohR1o3ExMx84fLxU8ti1eQnySUwJMh5E6d/logo.png"
+              />
+            </div>
           </Paper>
         </Container>
 
