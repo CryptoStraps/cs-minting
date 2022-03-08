@@ -6,20 +6,17 @@ import { Container, Snackbar, Box } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import Paper from "@material-ui/core/Paper";
 import Alert from "@material-ui/lab/Alert";
-import { PublicKey } from "@solana/web3.js";
 import { useWallet } from "@solana/wallet-adapter-react";
 import { WalletDialogButton } from "@solana/wallet-adapter-material-ui";
 import {
   awaitTransactionSignatureConfirmation,
   CandyMachineAccount,
-  CANDY_MACHINE_PROGRAM,
   getCandyMachineState,
   mintOneToken,
 } from "./candy-machine";
 import { AlertState } from "./utils";
 import { Header } from "./Header";
 import { MintButton } from "./MintButton";
-import { GatewayProvider } from "@civic/solana-gateway-react";
 import { getMeta } from "./get-meta";
 import ModalUnstyled from "@material-ui/core/Modal";
 
@@ -326,29 +323,7 @@ const Home = (props: HomeProps) => {
                 </div>
                 <Header candyMachine={candyMachine} />
                 <MintContainer>
-                  {candyMachine?.state.isActive &&
-                  candyMachine?.state.gatekeeper &&
-                  wallet.publicKey &&
-                  wallet.signTransaction ? (
-                    <GatewayProvider
-                      wallet={{
-                        publicKey:
-                          wallet.publicKey ||
-                          new PublicKey(CANDY_MACHINE_PROGRAM),
-                        //@ts-ignore
-                        signTransaction: wallet.signTransaction,
-                      }}
-                      gatekeeperNetwork={
-                        candyMachine?.state?.gatekeeper?.gatekeeperNetwork
-                      }
-                      clusterUrl={rpcUrl}
-                      options={{ autoShowModal: false }}
-                    >
-                      <MintButtons />
-                    </GatewayProvider>
-                  ) : (
-                    <MintButtons />
-                  )}
+                  <MintButtons />
                 </MintContainer>
               </>
             )}
