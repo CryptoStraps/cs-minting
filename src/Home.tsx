@@ -360,10 +360,10 @@ const Home = (props: HomeProps) => {
                   loop
                   muted
                   playsInline
-                  poster={meta.metadata.image}
+                  poster={meta?.metadata?.image}
                   style={{ display: "block", width: "100%" }}
                 >
-                  <source src={meta.metadata.animation_url} type="video/mp4" />
+                  <source src={meta?.metadata?.animation_url} type="video/mp4" />
                 </video>
               </div>
               {/* <StakeButton>STAKE</StakeButton> */}
