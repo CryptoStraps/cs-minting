@@ -284,7 +284,7 @@ const Home = (props: HomeProps) => {
           poster=""
           style={{ display: "block" }}
         >
-          <source src="/ammo4.mp4" type="video/mp4" />
+          <source src="/barrel.mp4" type="video/mp4" />
         </video>
       </div>
       <div className="mintCont">
