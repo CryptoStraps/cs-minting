@@ -241,7 +241,7 @@ const Home = (props: HomeProps) => {
         }
       } else {
         if (error.code === 311) {
-          message = `SOLD OUT!`;
+          message = `None left!`;
           window.location.reload();
         } else if (error.code === 312) {
           message = `Minting period hasn't started yet.`;
@@ -268,11 +268,7 @@ const Home = (props: HomeProps) => {
   ]);
 
   const MintButtons = () => {
-    return (
-      <>
-        SOLD OUT!
-      </>
-    );
+    return <></>;
   };
 
   return (
@@ -319,7 +315,11 @@ const Home = (props: HomeProps) => {
                 </div>
                 <Header candyMachine={candyMachine} />
                 <MintContainer>
-                  <MintButtons />
+                  <MintButton
+                    onMint={() => onMint()}
+                    candyMachine={candyMachine}
+                    isMinting={isUserMinting}
+                  />
                 </MintContainer>
               </>
             )}

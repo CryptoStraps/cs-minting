@@ -17,10 +17,10 @@ export const Header = ({ candyMachine }: HeaderProps) => {
         {candyMachine && (
           <Grid container direction="row" wrap="nowrap">
             <Grid container direction="column">
-              <Typography variant="body2" color="textSecondary">
+              {/* <Typography variant="body2" color="textSecondary">
                 Remaining
-              </Typography>
-              <Typography
+              </Typography> */}
+              {/* <Typography
                 variant="h6"
                 color="textPrimary"
                 style={{
@@ -32,10 +32,10 @@ export const Header = ({ candyMachine }: HeaderProps) => {
                     ? 0
                     : candyMachine?.state.itemsRemaining - 3000
                 }`}
-              </Typography>
+              </Typography> */}
             </Grid>
             <Grid container direction="column">
-              <Typography variant="body2" color="textSecondary">
+              {/* <Typography variant="body2" color="textSecondary">
                 Price
               </Typography>
               <Typography
@@ -44,27 +44,10 @@ export const Header = ({ candyMachine }: HeaderProps) => {
                 style={{ fontWeight: "bold" }}
               >
                 {getMintPrice(candyMachine)}
-              </Typography>
+              </Typography> */}
             </Grid>
           </Grid>
         )}
-        <MintCountdown
-          date={toDate(
-            candyMachine?.state.goLiveDate
-              ? candyMachine?.state.goLiveDate
-              : candyMachine?.state.isPresale
-              ? new anchor.BN(new Date().getTime() / 1000)
-              : undefined
-          )}
-          style={{ justifyContent: "flex-end" }}
-          status={
-            !candyMachine?.state?.isActive || candyMachine?.state?.isSoldOut
-              ? "COMPLETED"
-              : candyMachine?.state.isPresale
-              ? "PRESALE"
-              : "LIVE"
-          }
-        />
       </Grid>
     </Grid>
   );

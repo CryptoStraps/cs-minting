@@ -41,12 +41,12 @@ export const MintButton = ({
   }, [gatewayStatus, clicked, setClicked, onMint]);
 
   const getMintButtonContent = () => {
-    if (candyMachine?.state.isSoldOut || candyMachine!.state!.itemsAvailable! <= 3000) {
-      return 'SOLD OUT';
+    if (candyMachine?.state?.isSoldOut || candyMachine?.state?.itemsAvailable! <= 0) {
+      return 'NONE LEFT';
     } else if (isMinting) {
       return <Load />;
     } else if (candyMachine?.state.isPresale) {
-      return 'PRESALE MINT';
+      return 'MYSTERY MINT';
     } else if (clicked && candyMachine?.state.gatekeeper) {
       return <Load />;
     }
