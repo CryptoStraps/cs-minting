@@ -210,7 +210,7 @@ const Home = (props: HomeProps) => {
           // After this we can show dialogue with video
           const mint = mintTx?.meta?.postTokenBalances[0]?.mint;
           const meta = ((await getMeta(mint, props.endpoint)) as any[])[0];
-          setMeta(meta.metadata.animation_url);
+          setMeta(meta);
           handleOpen();
           console.log("META", meta.metadata.animation_url);
         }
@@ -360,10 +360,10 @@ const Home = (props: HomeProps) => {
                   loop
                   muted
                   playsInline
-                  poster=""
+                  poster={meta.metadata.image}
                   style={{ display: "block", width: "100%" }}
                 >
-                  <source src={meta} type="video/mp4" />
+                  <source src={meta.metadata.animation_url} type="video/mp4" />
                 </video>
               </div>
               {/* <StakeButton>STAKE</StakeButton> */}
