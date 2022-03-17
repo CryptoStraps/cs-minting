@@ -41,17 +41,16 @@ export const MintButton = ({
   }, [gatewayStatus, clicked, setClicked, onMint]);
 
   const getMintButtonContent = () => {
-    if (candyMachine?.state?.isSoldOut || candyMachine?.state?.itemsAvailable! <= 0) {
-      return 'NONE LEFT';
-    } else if (isMinting) {
-      return <Load />;
-    } else if (candyMachine?.state.isPresale) {
-      return 'MYSTERY MINT';
-    } else if (clicked && candyMachine?.state.gatekeeper) {
-      return <Load />;
+    if (candyMachine?.state.isSoldOut) {
+      return 'SOLD OUT'
     }
+    if ( clicked ||
+      isMinting ||
+      !candyMachine?.state.isActive) {
+        return 'LOADING...'
+      }
 
-    return 'LOADING...';
+    return 'MYSTERY MINT';
   };
 
   return (
