@@ -51,7 +51,7 @@ export const MintButton = ({
       return <Load />;
     }
 
-    return 'MINT';
+    return 'LOADING...';
   };
 
   return (
