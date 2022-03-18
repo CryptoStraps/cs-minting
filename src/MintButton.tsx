@@ -50,7 +50,7 @@ export const MintButton = ({
         return 'LOADING...'
       }
 
-    return 'MYSTERY MINT';
+    return 'LOOT MINT';
   };
 
   return (
